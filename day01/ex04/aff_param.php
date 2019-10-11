@@ -1,4 +1,4 @@
-#!/C/PHP7/php
+#!/usr/bin/php
 <?php
 $i = 1;
 while($i < $argc)

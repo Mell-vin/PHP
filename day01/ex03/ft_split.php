@@ -1,20 +1,9 @@
-#!/C/PHP7/php
 <?php
-$arr = trim($argv[1], " ");
-$new_arr = explode(" ", $arr);
-print_r($new_arr);
-echo "\n\n";
-$i = 0;
-while ($i < count($new_arr))
+function ft_split($string)
 {
-	if ($new_arr[$i] == " ")
-	{
-		echo " ";
-		while ($new_arr[$i] == " ")
-			$i++;
-	}
-	echo "$new_arr[$i]";
-	$i++;
+	$new_str = trim($string, " ");
+	$new_arr = array_filter(explode(" ", $new_str), strlen);
+	sort($new_arr);
+	return ($new_arr);
 }
 ?>
-
