@@ -1,0 +1,15 @@
+h1 {
+    color: rgb(64, 6, 82);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    align-content: center;
+    font: bold;
+    background-color: slateblue;
+    border-style: none none none solid;
+    border-left-color: purple;
+    border-left-width: 10px;
+    padding: 5px;
+}
+form {
+
+}
