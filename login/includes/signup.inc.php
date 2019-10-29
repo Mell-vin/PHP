@@ -60,7 +60,7 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
         $pwd = $_POST["pwd"];
         $pwdRep = $_POST["pwd-repeat"];
 
-        if(!$uppercase || !$number || !$specialChars || strlen($pwd) < 8) {
+        if(!$uppercase || !$number || !$lowercase || !$specialChars || strlen($pwd) < 8) {
             $pwdErr = "'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.";
         }
     }
