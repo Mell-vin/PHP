@@ -65,6 +65,6 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
         }
     }
     } else {
-        require 'dbh.inc.php';
+        
     }
 }
