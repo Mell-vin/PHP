@@ -1,9 +1,9 @@
 <?php
-    require_once ('database.php');
+    //require_once ('database.php');
     try{
-        $conn = new PDO ("mysql:host=$DB_host", $DB_username, $DB_pwd);
+        $conn = new PDO ("mysql:host=localhost", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "CREATE DATABASE IF NOT EXISTS $DB_name";
+        $sql = "CREATE DATABASE IF NOT EXISTS lwazCamagru";
         $conn->exec($sql);
         echo "database created successfully";
     }
@@ -13,13 +13,13 @@
     }
     //now to create my db table
     try {
-        $conn = new PDO ("mysql:host=$DB_host;dbname=$DB_name", $DB_username, $DB_pwd);
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE TABLE IF NOT EXISTS CamUsers (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             Username VARCHAR(25) NOT NULL,
             email VARCHAR(60) NOT NULL,
-            Userid VARCHAR(15) NOT NULL,
+            token VARCHAR(50) NOT NULL,
             pwd VARCHAR(60) NOT NULL
             )";
             $conn->exec($sql);
@@ -32,14 +32,14 @@
     // gallery table is to be born
 
     try {
-        $conn = new PDO ("mysql:host=$DB_host;dbname=$DB_name", $DB_username, $DB_pwd);
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "CREATE TABLE IF NOT EXISTS gallery (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             img VARCHAR(100) NOT NULL,
             galid int (10) NOT NULL,
-            FOREIGN KEY (galid) REFERENCES $Usertable(id)
+            FOREIGN KEY (galid) REFERENCES CamUsers(id)
         )";
         $conn->exec($sql);
         echo "table gallery created successfully\n";
@@ -50,14 +50,14 @@
     }
     // now to create the comments sections for the images posted
     try {
-        $conn = new PDO ("mysql:host=$DB_host;dbname=$DB_name", $DB_username, $DB_pwd);
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "CREATE TABLE IF NOT EXISTS comments (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             userid int(10) NOT NULL,
             galid int(10) NOT NULL,
-            FOREIGN KEY (userid) REFERENCES $Usertable(id),
+            FOREIGN KEY (userid) REFERENCES CamUsers(id),
             FOREIGN KEY (galid) REFERENCES gallery(id)
         )";
         $conn->exec($sql);
@@ -69,15 +69,13 @@
     }
 
     try {
-        $conn = new PDO ("mysql:host=$DB_host;dbname=$DB_name", $DB_username, $DB_pwd);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE TABLE IF NOT EXISTS likes (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             userid int(10) NOT NULL,
             galid int(10) NOT NULL,
             liked VARCHAR(1) NOT NULL,
-            FOREIGN KEY (userid) REFERENCES $Usertable(id),
+            FOREIGN KEY (userid) REFERENCES CamUsers(id),
             FOREIGN KEY (galid) REFERENCES gallery(id)
         )";
         $conn->exec($sql);
