@@ -1,6 +1,5 @@
 <?php //script for the signing up page
-session_start();
-require_once 'includes/signup.inc.php';
+require 'includes/signup.inc.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,29 +8,20 @@ require_once 'includes/signup.inc.php';
         <div>
             <section><h1>Sign up</h1><a href="login.php">Home</a>
             <p><span style="color: red;">* required field</span></p>
-                <form method="post" action="includes/signup.inc.php">
-                    Name: <input type="text" name="name" placeholder="Username">
-                    <span style="color: red;"></span>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    Name: <input type="text" name="name" placeholder="Username" value="<?php echo $name;?>">
+                    <span style="color: red;">* <?= isset($_GET['nameErr']) ? $_GET['nameErr'] : "";?></span>
                     <br><br>
-                   Email: <input type="text" name="email" placeholder="e-mail">
-                   <span style="color: red;"></span>
+                   Email: <input type="text" name="email" placeholder="e-mail" value="<?php echo $email;?>">
+                   <span style="color: red;">* <?php echo $mailErr;?></span>
                    <br><br>
                    Password(min len: 8 char) <input type="password" name="pwd" placeholder="password">
-                   <span style="color: red;"></span>
+                   <span style="color: red;">* <?php echo $pwd;?></span>
                    <br><br>
                    Repeat password: <input type="password" name="pwd-repeat" placeholder="repeat password">
-                   <span style="color: red;"></span>
+                   <span style="color: red;">* <?php echo $pwdRep;?></span>
                    <br><br>
-                    <button type="submit" name="signup-submit">SignUp</button> <!--clicks the submit button once all info is filled-->
-                    <span>
-                        <?php
-                            $_SESSION['error'] = null;
-                            if (isset($_SESSION['signup_success'])) {
-                                echo "Signup success please check your mail box";
-                                $_SESSION['signup_success'] = null;
-                            }
-                        ?>
-                    </span>
+                   <button type="submit" name="signup-submit">Signup</button>
                 </form>
             </section>
         </div>
