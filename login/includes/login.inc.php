@@ -1,29 +1,40 @@
 <?php
 
-if (isset($_POST['login-submit'])) {
+include '../functions/login.inc.php';
+session_start();
 
-    require 'dbh.inc.php';
+if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $mailuid = $_POST['mailuid'];
-    $password = $_POST['pwd'];
+    function test($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
 
-   // if (empty($mailuid) || empty($password)) {
-        if (empty($mailuid) && empty($password)) {
-            header("Location: http://localhost/camagru/login/login.php?error=Emptyfields");
-            exit();
+    $nameErr = $pwdErr = "";
+    $mailuid = test($_POST['mailuid']);
+    $pwd = test($_POST['pwd']);
+
+        if (empty($pwd)) {
+            $pwdErr = "pwd cannot be empty";
         }
-        else if (empty($mailuid)) {
-            header("Location: http://localhost/camagru/login/login.php?error=emptyUsername");
-            exit ();
-        } else if (empty($password)) {
-            header("Location: http://localhost/camagru/login/login.php?error=emptyPassword&mailuid=".$mailuid);
-            exit ();
+
+        if (empty($mailuid)) {
+            $nameErr = "username cannot be empty";
+        }
+        
+        if (!empty($nameErr) || !empty($pwdErr)) {
+            header("Location: http://localhost:8080/camagru/login/index.php?nameErr={$nameErr}&pwdErr={$pwdErr}");
+        return;
         }
 
-    } 
-    else {
-
-        header("Location: http://localhost/camagru/login/login.php?error=emptyfields&name=");
+        if ($val = login($mailuid, $pwd) == -1){
+            $loginErr = "user not found. try another user or sign up";
+            header("Location: http://localhost:8080/camagru/login/index.php?loginErr={$loginErr}");
+            return;
+        } else{
+            $_SESSION['id'] = $val['id'];
+            $_SESSION['username'] = $val['Username'];
+        }
     }
-
-//} 

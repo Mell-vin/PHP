@@ -13,13 +13,13 @@ require 'includes/signup.inc.php';
                     <span style="color: red;">* <?= isset($_GET['nameErr']) ? $_GET['nameErr'] : "";?></span>
                     <br><br>
                    Email: <input type="text" name="email" placeholder="e-mail" value="<?php echo $email;?>">
-                   <span style="color: red;">* <?php echo $mailErr;?></span>
+                   <span style="color: red;">* <?= isset($_GET['mailErr']) ? $_GET['mailErr'] : "";?></span>
                    <br><br>
                    Password(min len: 8 char) <input type="password" name="pwd" placeholder="password">
-                   <span style="color: red;">* <?php echo $pwd;?></span>
+                   <span style="color: red;">* <?= isset($_GET['pwdErr']) ? $_GET['pwdErr'] : "";?></span>
                    <br><br>
                    Repeat password: <input type="password" name="pwd-repeat" placeholder="repeat password">
-                   <span style="color: red;">* <?php echo $pwdRep;?></span>
+                   <span style="color: red;">* <?= isset($_GET['pwdDiff']) ? $_GET['pwdDiff'] : "";?></span>
                    <br><br>
                    <button type="submit" name="signup-submit">Signup</button>
                 </form>

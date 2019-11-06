@@ -8,7 +8,8 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
             // $sql = $conn->prepare("INSERT INTO CamUsers (username, email, pwd) VALUES (:username, :email, :pwd, :token)");
-            $toke = md5(uniqid(rand(), TRUE));
+            $toke = uniqid(rand(), TRUE);
+            $hash = password_hash($pwd, PASSWORD_DEFAULT);
             // $sql->execute(array(':username' => $name, ':email' => $email, ':pwd' => $pwd, ':token' => $toke));
 
             // Bind Param

@@ -2,7 +2,7 @@
 require_once "setupFunc.php";
 
 //$name = $email = $pwd = $pwdRep = "";
-$nameErr = $mailErr = $uidErr = $pwdErr = $pwdDiff = "";
+$nameErr = $mailErr = $uidErr = $pwdErr = $pwdDiff = $namingErr = "";
 
 if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['pwd']) && isset($_POST['pwd-repeat'])){
     $name = test($_POST['name']);
@@ -22,15 +22,20 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
 
     if (empty($name) || empty($email) || empty($pwd) || empty($pwdRep)) {
         $nameErr = "No field should be left empty";
-        //exit();
+        //header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}");
+        //return;
     }
 
     if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-        $nameErr = "Only letters and white space allowed";
+        $namingErr = "Only letters and white space allowed";
+        //header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}");
+        //return;
     }
 
     if ($pwd !== $pwdRep) {
         $pwdDiff = "Password didn't match";
+        //header("Location: http://localhost:8080/camagru/login/signup.php?pwdErr={$pwdDiff}");
+        //return;
     } else {
         $uppercase      = preg_match("/^[A-Z]*$/", $pwd);
         $lowercase      = preg_match("/^[a-z]*$/", $pwd);
@@ -38,22 +43,21 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
         $specialChars   = preg_match("/^[!@#$%^&*()-_,.?]*$/", $pwd);
 
         if(/*!$uppercase || !$number || !$lowercase || !$specialChars || */strlen($pwd) < 8) {
-            $pwdErr = "'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.";
+            $pwdErr = "'Password should be at least 8 characters";
+            //header("Location: http://localhost:8080/camagru/login/signup.php?pwdErr={$pwdErr}");
+            //return;
         }
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $mailErr = "Invalid email format";
+        //header("Location: http://localhost:8080/camagru/login/signup.php?mailErr={$mailErr}");
+        //return;
     }
 
-    // if (!empty($nameErr) || !empty($mailErr) || !empty($pwdErr) || !empty($pwdDiff)) {
-    //     header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}&mailErr={$mailErr}&pwdErr={$pwdErr}&pwdDiff={$pwdDiff}");
-    //     return;
-    // }
-
     $email = strtolower($email);
+    if (!empty($name) && !empty($email)) {
     try{
-        echo "checking acc...";
         $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","000000");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         echo "Connected successfully." . "\n";
@@ -79,6 +83,8 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
 
         if (sizeof($ret) > 0) {
             $nameErr = "Username or email already exists";
+            //header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}");
+            //return;
         }
     } catch(PDOException $e){
         echo "\n";
@@ -86,9 +92,10 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
         echo "Error: Oops! Couldn't check user account";
     }
     $conn = null;
+}
     
     if (!empty($nameErr) || !empty($mailErr) || !empty($pwdErr) || !empty($pwdDiff)) {
-        header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}&mailErr={$mailErr}&pwdErr={$pwdErr}&pwdDiff={$pwdDiff}");
+        header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}&mailErr={$mailErr}&pwdErr={$pwdErr}&pwdDiff={$pwdDiff}&namingErr={$namingErr}");
         return;
     }
 
