@@ -99,5 +99,6 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
         return;
     }
 
+    $url = $_SERVER['HTTP_HOST']. str_replace("includes/signup.inc.php", "", $_SERVER['REQUEST_URI']);
     signupFunc($name, $email, $pwd);
 }

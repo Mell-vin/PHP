@@ -37,4 +37,6 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION['id'] = $val['id'];
             $_SESSION['username'] = $val['Username'];
         }
+
+        header("Location: http://localhost:8080/camagru/login/index.php");
     }
