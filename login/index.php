@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'includes/login.inc.php';
 ?>
 <!doctype html>
 <html>
@@ -26,24 +27,16 @@ session_start();
             </nav>
             <div>
                 <?php if (isset($_SESSION['id'])) { ?>
-                    You are logged in as: <?php print_r(htmlspecialchars($_SESSION['username']))?>
+                    You are logged in as: <?php print_r(htmlspecialchars($_SESSION['id']))?>
                 <?php } else { ?> 
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                        <input type="text" name="mailuid" placeholder="email...">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" value="<?php echo $mailuid;?>">
+                        Email: <input type="text" name="mailuid" placeholder="email...">
                         <span style="color: red;">* <?= isset($_GET['nameErr']) ? $_GET['nameErr'] : "";?></span>
                         <br><br>
-                        <input type="password" name="pwd" placeholder="Password...">
-                        <span style="color: red;">* <?= isset($_GET['nameErr']) ? $_GET['nameErr'] : "";?></span>
+                        Password: <input type="password" name="pwd" placeholder="Password...">
+                        <span style="color: red;">* <?= isset($_GET['pwdErr']) ? $_GET['pwdErr'] : "";?></span>
                         <br><br>
                         <button type="submit" name="login-submit">Login</button>
-                        <span>
-                             <?php
-				            if ($_SESSION['error']) {
-					            echo $_SESSION['error'];
-				            }
-                            $_SESSION['error'] = null;
-                            ?>
-                        </span>
                </form>
                 <?php } ?>
                <br><br>

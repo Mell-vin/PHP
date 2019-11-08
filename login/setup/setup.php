@@ -20,6 +20,7 @@
             Username VARCHAR(25) NOT NULL,
             email VARCHAR(60) NOT NULL,
             token VARCHAR(50) NOT NULL,
+            verified VARCHAR(1) NOT NULL DEFAULT 'N', 
             pwd VARCHAR(60) NOT NULL
             )";
             $conn->exec($sql);

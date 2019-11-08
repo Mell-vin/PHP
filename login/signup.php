@@ -6,7 +6,7 @@ require 'includes/signup.inc.php';
 <head><link rel="stylesheet" href="styles/styela.css"></head>
     <main>
         <div>
-            <section><h1>Sign up</h1><a href="login.php">Home</a>
+            <section><h1>Sign up</h1><a href="index.php">Home</a>
             <p><span style="color: red;">* required field</span></p>
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     Name: <input type="text" name="name" placeholder="Username" value="<?php echo $name;?>">

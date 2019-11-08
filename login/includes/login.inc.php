@@ -1,7 +1,6 @@
 <?php
-
-include '../functions/login.inc.php';
 session_start();
+include 'functions/login.inc.php';
 
 if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -13,11 +12,11 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
       }
 
     $nameErr = $pwdErr = "";
-    $mailuid = test($_POST['mailuid']);
+    $mailuid = strtolower(test($_POST['mailuid']));
     $pwd = test($_POST['pwd']);
 
         if (empty($pwd)) {
-            $pwdErr = "pwd cannot be empty";
+            $pwdErr = "password cannot be empty";
         }
 
         if (empty($mailuid)) {
@@ -29,14 +28,52 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         return;
         }
 
-        if ($val = login($mailuid, $pwd) == -1){
+        //$log = login($mailuid, $pwd);
+        echo "Connected successfully." . "\n";
+        if (!empty($mailuid) && !empty($pwd)){
+        try{
+            $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","000000");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = $conn->prepare("SELECT email, pwd FROM CamUsers WHERE email=:username AND pwd=:pwd");
+            // $sql->exec(array(':username' => $name, ':email' => $email));
+            $hash = hash("md5", $pwd);
+            $sql->bindParam(":username", $mailuid);
+            $sql->bindParam(":pwd", $hash);
+            $sql->execute();
+    
+            // $res = $sql->setFetchMode(PDO::FETCH_ASSOC);
+        
+            // $ret = $sql->fetchAll();
+            
+            // for ($i = 0; $i < sizeof($ret); $i++) {
+            //     foreach ($ret[$i] as $k => $v) {
+            //         echo "{$k}: {$v}<br/>";
+            //     }
+            // }
+    
+            $ret = $sql->fetchAll();
+    
+            if (sizeof($ret) > 0) {
+                $_SESSION['id'] = $mailuid;
+                header("Location: http://localhost:8080/camagru/login/index.php");
+                return;
+            }else{
+                $nameErr = "User not found";
+                header("Location: http://localhost:8080/camagru/login/index.php?nameErr={$nameErr}");
+                return;
+            }
+        } catch(PDOException $e){
+            echo "\n";
+            echo $e->$message . "\n";
+            echo "Error: Oops! Couldn't check user account";
+        }
+    }
+        /*if ($log == 0){
             $loginErr = "user not found. try another user or sign up";
             header("Location: http://localhost:8080/camagru/login/index.php?loginErr={$loginErr}");
             return;
         } else{
-            $_SESSION['id'] = $val['id'];
-            $_SESSION['username'] = $val['Username'];
+            $_SESSION['username'] = $mailuid;
         }
-
-        header("Location: http://localhost:8080/camagru/login/index.php");
+        header("Location: http://localhost:8080/camagru/login/index.php?success=$signup");*/
     }
