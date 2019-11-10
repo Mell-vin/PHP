@@ -1,19 +1,19 @@
 <?php
     //require_once ('database.php');
     try{
-        $conn = new PDO ("mysql:host=localhost", "root", "000000");
+        $conn = new PDO ("mysql:host=localhost", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE DATABASE IF NOT EXISTS lwazCamagru";
         $conn->exec($sql);
         echo "database created successfully";
     }
     catch(PDOException $e){
-        echo $sql."<br>". $e->getMessage();
+        echo "kubi mtase. didnt create db";
         exit();
     }
     //now to create my db table
     try {
-        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE TABLE IF NOT EXISTS CamUsers (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -27,13 +27,13 @@
             echo "table CamUsers created successfully\n";
     }
     catch (PDOException $e){
-        echo $sql."<br>".$e->getMessage();
+        echo "kubi mtase. didnt create table";
         exit();
     }
     // gallery table is to be born
 
     try {
-        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "CREATE TABLE IF NOT EXISTS gallery (
@@ -46,12 +46,12 @@
         echo "table gallery created successfully\n";
     }
     catch (PDOException $e){
-        echo $sql."<br>".$e->getMessage();
+        echo "kubi mtase. didnt create table";
         exit();
     }
     // now to create the comments sections for the images posted
     try {
-        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "CREATE TABLE IF NOT EXISTS comments (
@@ -65,12 +65,12 @@
         echo "table comments created successfully\n";
     }
     catch (PDOException $e){
-        echo $sql."<br>". $e->getMessage();
+        echo "kubi mtase. didnt create table";
         exit();
     }
 
     try {
-        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru", "root", "");        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE TABLE IF NOT EXISTS likes (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             userid int(10) NOT NULL,
@@ -83,7 +83,7 @@
         echo "table likes created successfully\n";
     }
     catch (PDOException $e){
-        echo $sql."<br>". $e->getMessage();
+        echo "kubi mtase. didnt create table";
         exit();
     }
 ?>

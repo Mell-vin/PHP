@@ -24,15 +24,14 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         }
         
         if (!empty($nameErr) || !empty($pwdErr)) {
-            header("Location: http://localhost:8080/camagru/login/index.php?nameErr={$nameErr}&pwdErr={$pwdErr}");
+            header("Location: http://localhost/camagru/login/index.php?nameErr={$nameErr}&pwdErr={$pwdErr}");
         return;
         }
 
         //$log = login($mailuid, $pwd);
-        echo "Connected successfully." . "\n";
         if (!empty($mailuid) && !empty($pwd)){
         try{
-            $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","000000");
+            $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = $conn->prepare("SELECT email, pwd FROM CamUsers WHERE email=:username AND pwd=:pwd");
             // $sql->exec(array(':username' => $name, ':email' => $email));
@@ -44,7 +43,7 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             // $res = $sql->setFetchMode(PDO::FETCH_ASSOC);
         
             // $ret = $sql->fetchAll();
-            
+            //<br /><b>Notice</b>:  Undefined variable: name in <b>C:\xampp\htdocs\camagru\login\signup.php</b> on line <b>12</b><br />
             // for ($i = 0; $i < sizeof($ret); $i++) {
             //     foreach ($ret[$i] as $k => $v) {
             //         echo "{$k}: {$v}<br/>";
@@ -55,16 +54,15 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     
             if (sizeof($ret) > 0) {
                 $_SESSION['id'] = $mailuid;
-                header("Location: http://localhost:8080/camagru/login/index.php");
+                header("Location: http://localhost/camagru/login/index.php");
                 return;
             }else{
-                $nameErr = "User not found";
-                header("Location: http://localhost:8080/camagru/login/index.php?nameErr={$nameErr}");
+                $nameErr = "User not found ? password incorrect";
+                header("Location: http://localhost/camagru/login/index.php?nameErr={$nameErr}");
                 return;
             }
         } catch(PDOException $e){
             echo "\n";
-            echo $e->$message . "\n";
             echo "Error: Oops! Couldn't check user account";
         }
     }

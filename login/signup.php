@@ -1,5 +1,6 @@
 <?php //script for the signing up page
 require 'includes/signup.inc.php';
+include 'frag/header.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,5 +29,5 @@ require 'includes/signup.inc.php';
     </main>
 </html>
 <?php
-    require "footer.php";
+    include "frag/footer.php";
 ?>
