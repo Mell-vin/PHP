@@ -1,9 +1,10 @@
 <?php
 session_start();
-    require_once 'database.php';
+    require 'config/database.php';
+    include 'includes/mail.inc.php';
     //require 'includes/signup.inc.php';
 
-    function signupFunc ($name, $email, $pwd, $url){
+    function signupFunc ($name, $email, $pwd){
         try {
             $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "");
             $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -22,9 +23,11 @@ session_start();
             $sql->bindParam(":token", $toke);
             $sql->execute();
 
-            //Email_verify($email, $name, $toke, $url);
-            $success = "Sign up successful. please check your email before logging in";
-            header("Location: http://localhost/camagru/login/index.php?success={$success}");
+            $url = "http://localhost:8080/camagru/login/verify.php?username=$email?token=$toke";
+            Email_verify($email, $name, $toke, $url);
+            $success = "sign up success. please check your email address";
+            $_SESSION['success'] = $success;
+            header("Location: http://localhost:8080/camagru/login/index.php");
             return;
 
         }catch(PDOException $e){

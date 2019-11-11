@@ -5,11 +5,11 @@
         $email = strtolower($_POST['email']);
         if (empty($email)) {
             $mailErr = "email can not be empty";
-            header("Location: http://localhost/camagru/login/forgot.php?mailErr={$mailErr}");
+            header("Location: http://localhost:8080/camagru/login/forgot.php?mailErr={$mailErr}");
             return;
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $mailErr = "Invalid email format";
-            header("Location: http://localhost/camagru/login/forgot.php?mailErr={$mailErr}");
+            header("Location: http://localhost:8080/camagru/login/forgot.php?mailErr={$mailErr}");
             return;
         } else {
             try {
@@ -25,12 +25,13 @@
                 if (sizeof($ret) > 0) {
                     forgotPwd($email, $newPwd);
                     $_SESSION['mail'] = $email;
-                    $sent = "email sent. Please check your email to get your new password then login";
-                    header("Location: http://localhost/camagru/login/index.php?sent={$sent}");
+                    $_SESSION['success'] = null;
+                    $sent = "Please check your email to get your new password then login";
+                    header("Location: http://localhost:8080/camagru/login/index.php?sent={$sent}");
                     return;
                 } else{
                     $nameErr = "Username not found. try again";
-                    header("Location: http://localhost/camagru/login/forgot.php?mailErr={$nameErr}");
+                    header("Location: http://localhost:8080/camagru/login/forgot.php?mailErr={$nameErr}");
                     return;
                 }
             } catch(PDOException $e){

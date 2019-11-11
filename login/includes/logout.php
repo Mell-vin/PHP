@@ -3,5 +3,5 @@
     $_SESSION['error'] = null;
     $_SESSION['id'] = null;
     $_SESSION['mailuid'] = null;
-    header("Location: http://localhost/camagru/login/index.php");
+    header("Location: http://localhost:8080/camagru/login/index.php");
 ?>

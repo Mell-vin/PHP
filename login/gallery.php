@@ -6,6 +6,7 @@
 <HTML>
     <header>
         <link rel="stylesheet" href="styles/styela.css">
+        <link rel="stylesheet" href="main.css" type="text/css" media="all">
         <meta charset="utf-8">
         <title>Camagru: Gallery</title>
     </header>
@@ -22,7 +23,17 @@
             <input id="hat.png" type="radio" name="png" value="./img/hat.png" onclick="onCheckBoxChecked(this)">
         </div>
         <video width="100%" autoplay="true" id="webcam"></video>
-        <div id="camera-not-available">CAMERA NOT AVAILABLE</div>
+        <!--<div id="camera-not-available">CAMERA NOT AVAILABLE</div>-->
+        <div class="contentarea">
+            <div class="camera">
+            <video id="video">Video stream not available.</video>
+            <button id="startbutton">Take photo</button> 
+        </div>
+        <canvas id="canvas">
+        </canvas>
+        <div class="output">
+        <img id="photo" alt="The screen capture will appear in this box."> 
+  </div>
           <img id="hat" style="display:none;" src="img/hat.png"></img>
           <img id="cigarette" style="display:none;" src="img/cigarette.png"></img>
           <img id="gun" style="display:none;" src="img/cadre.png"></img>
@@ -59,9 +70,8 @@
       </div>
     </body>
     <?php if(isset($_SESSION['id'])) { ?>
-      <script type="text/javascript" src="java/cam.js"></script>
-      <script type="text/javascript" src="java/drop.js"></script>
-      <script type="text/javascript" src="java/import.js"></script>
+      <script type="text/javascript" src="java/cam2.js"></script>
+      
       <?php } ?>
       <?php include 'frag/footer.php'; ?>
 </HTML>

@@ -1,6 +1,6 @@
 <?php //the signup script that comms with the database
 require_once "setupFunc.php";
-inlude 'config/database.php';
+include 'config/database.php';
 
 $nameErr = $mailErr = $uidErr = $pwdErr = $pwdDiff = $namingErr = "";
 
@@ -47,7 +47,7 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
     $email = strtolower($email);
     if (!empty($name) && !empty($email)) {
     try{
-        $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","");
+        $conn = new PDO ("mysql:host=$DB_host;dbname=$DB_name",$DB_username,$DB_pwd);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         echo "Connected successfully." . "\n";
         
@@ -81,10 +81,10 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
     }
     
     if (!empty($nameErr) || !empty($mailErr) || !empty($pwdErr) || !empty($pwdDiff)) {
-        header("Location: http://localhost/camagru/login/signup.php?nameErr={$nameErr}&mailErr={$mailErr}&pwdErr={$pwdErr}&pwdDiff={$pwdDiff}&namingErr={$namingErr}");
+        header("Location: http://localhost:8080/camagru/login/signup.php?nameErr={$nameErr}&mailErr={$mailErr}&pwdErr={$pwdErr}&pwdDiff={$pwdDiff}&namingErr={$namingErr}");
         return;
     }
 
-    $url = $_SERVER['HTTP_HOST']. str_replace("includes/signup.inc.php", "", $_SERVER['REQUEST_URI']);
-    signupFunc($name, $email, $pwd, $url);
+    //$url = $_SERVER['HTTP_HOST']. str_replace("includes/signup.inc.php", "", $_SERVER['REQUEST_URI']);
+    signupFunc($name, $email, $pwd);
 }

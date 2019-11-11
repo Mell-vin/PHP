@@ -1,9 +1,9 @@
 <?php
     function login($mailid, $pwd) {
-        include_once "setup.database.php";
+        include_once "setup/database.php";
 
         try {
-            $conn = new PDO ("mysgl:host=localhost;dbname=lwazCamagru","root","000000");
+            $conn = new PDO ("mysgl:host=$DB_host;dbname=$DB_name",$DB_username,$DB_pwd);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = $conn->prepare("SELECT email, pwd FROM CamUsers WHERE email=:email AND pwd=:pwd AND verified='N'");
             $mailid = strtolower($mailid);

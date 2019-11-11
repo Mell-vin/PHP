@@ -37,8 +37,8 @@
                 <br>
                     <?php print_r(htmlspecialchars($_GET['sent']))?>
                 <?php } else { ?> 
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" value="<?php echo $mailuid;?>">
-                        Email: <input type="text" name="mailuid" placeholder="email...">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                        Email: <input type="text" name="mailuid" placeholder="email..." >
                         <span style="color: red;">* <?= isset($_GET['nameErr']) ? $_GET['nameErr'] : "";?></span>
                         <br><br>
                         Password: <input type="password" name="pwd" placeholder="Password...">

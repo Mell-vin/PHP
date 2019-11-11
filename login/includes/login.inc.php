@@ -24,7 +24,7 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         }
         
         if (!empty($nameErr) || !empty($pwdErr)) {
-            header("Location: http://localhost/camagru/login/index.php?nameErr={$nameErr}&pwdErr={$pwdErr}");
+            header("Location: http://localhost:8080/camagru/login/index.php?nameErr={$nameErr}&pwdErr={$pwdErr}");
         return;
         }
 
@@ -54,11 +54,11 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     
             if (sizeof($ret) > 0) {
                 $_SESSION['id'] = $mailuid;
-                header("Location: http://localhost/camagru/login/index.php");
+                header("Location: http://localhost:8080/camagru/login/index.php");
                 return;
             }else{
                 $nameErr = "User not found ? password incorrect";
-                header("Location: http://localhost/camagru/login/index.php?nameErr={$nameErr}");
+                header("Location: http://localhost:8080/camagru/login/index.php?nameErr={$nameErr}");
                 return;
             }
         } catch(PDOException $e){
