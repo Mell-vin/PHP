@@ -14,10 +14,8 @@ include 'functions/verify.php';
     <div id="login">
     <div class="title">VERIFY</div>
     <br>
-    <?php if(isset($_GET['token'])) { ?>
-    <?php print_r("123"); ?>
-    <?php } ?>
-    <?php if (verifyFunc($_GET["token"]) == 0) { ?>
+    <?php $var = $_GET['token']; ?>
+    <?php if (verifyFunc($var) == 0) { ?>
       <strong>
         Your account as been verified. You can login.
       </strong>

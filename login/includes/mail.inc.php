@@ -37,7 +37,7 @@
         </html>
         ';
         try {
-        $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "");
+        $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $sql = $conn->prepare("UPDATE CamUsers SET pwd=:pwd WHERE email=:email");
         $sql->execute(array(':pwd'=> $pwd, ':email'=> $email));

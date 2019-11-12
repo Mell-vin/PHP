@@ -13,7 +13,7 @@
             return;
         } else {
             try {
-                $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "");
+                $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = $conn->prepare("SELECT email FROM CamUsers WHERE email=:email");
                 $sql->bindParam(':email', $email);

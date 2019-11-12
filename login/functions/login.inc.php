@@ -1,6 +1,6 @@
 <?php
     function login($mailid, $pwd) {
-        include_once "setup/database.php";
+        include_once "config/database.php";
 
         try {
             $conn = new PDO ("mysgl:host=$DB_host;dbname=$DB_name",$DB_username,$DB_pwd);

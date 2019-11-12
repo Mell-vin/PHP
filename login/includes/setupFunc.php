@@ -6,7 +6,7 @@ session_start();
 
     function signupFunc ($name, $email, $pwd){
         try {
-            $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "");
+            $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
             $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
             // $sql = $conn->prepare("INSERT INTO CamUsers (username, email, pwd) VALUES (:username, :email, :pwd, :token)");
@@ -23,7 +23,7 @@ session_start();
             $sql->bindParam(":token", $toke);
             $sql->execute();
 
-            $url = "http://localhost:8080/camagru/login/verify.php?username=$email?token=$toke";
+            $url = "http://localhost:8080/camagru/login/verify.php?username=$email&token=$toke";
             Email_verify($email, $name, $toke, $url);
             $success = "sign up success. please check your email address";
             $_SESSION['success'] = $success;

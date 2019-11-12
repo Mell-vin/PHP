@@ -2,11 +2,11 @@
     function verifyFunc($token){
 
             try{
-                $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru","root","");
+                $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru","root","000000");
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = $conn->prepare("SELECT id FROM CamUsers WHERE token=:token");
                 
-                $sql->bindParam(":token", $toke);
+                $sql->bindParam(":token", $token);
                 $sql->execute();
     
                 $ret = $sql->fetch();

@@ -2,7 +2,7 @@
     //require 'database.php';
 
     try{
-        $conn = new PDO("mysql:host=localhost","root","");
+        $conn = new PDO("mysql:host=localhost","root","000000");
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $sql="DROP DATABASE lwazCamagru";
         $conn->exec($sql);
