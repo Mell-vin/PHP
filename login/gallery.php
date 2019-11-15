@@ -65,7 +65,7 @@
       </div>
 		</div>
         <?php } else { ?>
-          You need to connect to use the gallery
+          <strong>You need to connect to use the gallery</strong>
         <?php } ?>
       </div>
     </body>
