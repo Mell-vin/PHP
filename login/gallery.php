@@ -32,8 +32,11 @@
         <canvas id="canvas">
         </canvas>
         <div class="output">
-        <img id="photo" alt="The screen capture will appear in this box."> 
-  </div>
+            <img id="photo" alt="The screen capture will appear in this box.">
+            <button type="button" onclick="index.php" action="index.php">upload</button>
+        </div>
+  <input type="file" id="take-picture" style="display:none;" accept="image/*">
+        </div>
           <img id="hat" style="display:none;" src="img/hat.png"></img>
           <img id="cigarette" style="display:none;" src="img/cigarette.png"></img>
           <img id="gun" style="display:none;" src="img/cadre.png"></img>
