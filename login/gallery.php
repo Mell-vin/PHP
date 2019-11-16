@@ -1,80 +1,50 @@
-<?php
-    session_start();
-    $pages = "";//get_all_pages();
-?>
-<!DOCTYPE html>
-<HTML>
-    <header>
-        <link rel="stylesheet" href="styles/styela.css">
-        <link rel="stylesheet" href="main.css" type="text/css" media="all">
-        <meta charset="utf-8">
-        <title>Camagru: Gallery</title>
-    </header>
-    <?php if (isset($_SESSION['id'])) { ?>
-        You are logged in as: <?php print_r(htmlspecialchars($_SESSION['id']))?>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="styles/styela.css">
+</head>
     <body style="background-color: grey;">
         <?php include 'frag/header.php';?>
-        <div class="main">
-            <img class="small" src="img/gun.png"></img>
-            <input id="cadre.png" type="radio" name="img" value="./img/cadre.png" onclick="onCheckBoxChecked(this)">
-            <img class="small" src="img/cig.png"></img>
-            <input id="cigarette.png" type="radio" name="img" value="./img/cig.png" onclick="onCheckBoxChecked(this)">
-            <img class="small" src="img/hat.png"></img>
-            <input id="hat.png" type="radio" name="png" value="./img/hat.png" onclick="onCheckBoxChecked(this)">
+        <input id ="browse" onclick="swap2()" type="file">
+        <br><br>
+        <div id="canvas">
+              <video id="video">Video unavailable..</video>
+              <button id="shoot">Capture</button>
         </div>
-        <video width="100%" autoplay="true" id="webcam"></video>
-        <!--<div id="camera-not-available">CAMERA NOT AVAILABLE</div>-->
-        <div class="contentarea">
-            <div class="camera">
-            <video id="video">Video stream not available.</video>
-            <button id="startbutton">Take photo</button> 
-        </div>
-        <canvas id="canvas">
-        </canvas>
+        <canvas id="cam"></canvas>
         <div class="output">
-            <img id="photo" alt="The screen capture will appear in this box.">
-            <button type="button" onclick="index.php" action="index.php">upload</button>
+            <img id="photo" alt="Waiting for picture... "> 
         </div>
-  <input type="file" id="take-picture" style="display:none;" accept="image/*">
-        </div>
-          <img id="hat" style="display:none;" src="img/hat.png"></img>
-          <img id="cigarette" style="display:none;" src="img/cigarette.png"></img>
-          <img id="gun" style="display:none;" src="img/cadre.png"></img>
-    		  <div class="capture" id="pickImage">
-            <img class="camera" src="img/camera.png"></img>
-          </div>
-          <canvas id="canvas" style="display:none;" width="640" height="480"></canvas>
-          <div class="captureFile" id="pickFile">
-            <img class="camera" src="img/camera.png"></img>
-          </div>
-          <input type="file" id="take-picture" style="display:none;" accept="image/*">
-        </div>
-        <div class="side">
-			<div class="title">Montages</div>
-      <div id="miniatures">
-        <?php
-          $gallery = "";
-          if ($pages != null) {
-            for ($i = 0; $pages[$i] ; $i++) {
-              $class = "icon";
-              if ($pages[$i]['userid'] === $_SESSION['id']) {
-                $class .= " removable";
+        <button id="web" onclick="swap()">webcam</button>
+        <button id="saveFunc" onclick="saveFunc()">upload</button>
+        <script>
+              function swap() {
+                document.getElementById("canvas").style.zIndex = "-1";
+                document.getElementById("cam").style.zIndex = "0";
               }
-              $gallery .= "<img class=\"" . $class . "\" src=\"./montage/" . $pages[$i]['img'] . "\" data-userid=\"" . $pages[$i]['userid'] . "\"></img>";
-            }
-            echo $gallery;
-          }
-        ?>
-      </div>
-		</div>
-        <?php } else { ?>
-          <strong>You need to connect to use the gallery</strong>
-        <?php } ?>
-      </div>
+
+              function swap2() {
+                document.getElementById("canvas").style.zIndex = "0";
+                document.getElementById("cam").style.zIndex = "-1";
+              }
+
+              document.getElementById('browse').onchange = function(e) {
+  var img = new Image();
+  img.onload = draw;
+  img.onerror = failed;
+  img.src = URL.createObjectURL(this.files[0]);
+};
+function draw() {
+  var canvas = document.getElementById('canvas');
+  canvas.width = this.width;
+  canvas.height = this.height;
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(this, 0,0);
+}
+function failed() {
+  console.error("The provided file couldn't be loaded as an Image media");
+}
+        </script>
+        <script type="text/javascript" src="java/cam2.js"></script>
     </body>
-    <?php if(isset($_SESSION['id'])) { ?>
-      <script type="text/javascript" src="java/cam2.js"></script>
-      
-      <?php } ?>
-      <?php include 'frag/footer.php'; ?>
-</HTML>
+</html>
