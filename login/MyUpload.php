@@ -1,8 +1,13 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <html>
-<head>
+<header>
     <link rel="stylesheet" href="styles/styela.css">
-</head>
+</header>
+<?php if (isset($_SESSION['id'])) { ?>
+        You are logged in as: <?php print_r(htmlspecialchars($_SESSION['id']))?>
     <body style="background-color: grey;">
         <?php include 'frag/header.php';?>
         <input id ="browse" onclick="swap2()" type="file">
@@ -13,6 +18,7 @@
         </div>
         <canvas id="cam"></canvas>
         <canvas id="upload"></canvas>
+        <canvas id="canvass" style="display:none;" width="800" height="600"></canvas>
         <div class="output">
             <img id="photo" alt="Waiting for picture... "> 
         </div>
@@ -24,11 +30,11 @@
       			<img class="thumbnail" src="img/hat.png"></img>
       			<input id="hat.png" type="radio" name="img" value="./img/hat.png" onclick="onCheckBoxChecked(this)">
         </div>
-            <img id="hat" style="display:inline;" src="img/hat.png"></img>
-            <img id="cigarette" style="display:inline;" src="img/cig.png"></img>
-            <img id="gun" style="display:inline;" src="img/gun.png"></img>
+            <img id="hat" style="display:none;" src="img/hat.png"></img>
+            <img id="cigarette" style="display:none;" src="img/cig.png"></img>
+            <img id="gun" style="display:none;" src="img/gun.png"></img>
         <button id="web" onclick="swap()">webcam</button>
-        <button id="saveFunc" onclick="saveFunc()">upload</button>
+        <button id="saveFunc" onclick="includes/upload.inc.php">upload</button>
         <script>
               function swap() {
                 document.getElementById("upload").style.zIndex = "-1";
@@ -61,5 +67,10 @@
               }
         </script>
         <script type="text/javascript" src="java/cam2.js"></script>
+        <script type="text/javascript" src="java/import.js"></script>
+        <?php } else { ?>
+          <strong>You need to connect to use the gallery</strong>
+          <h1>Gallery</h1><a href="index.php">Home</a>
+        <?php } ?>
     </body>
 </html>

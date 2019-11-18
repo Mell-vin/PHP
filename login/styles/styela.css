@@ -26,6 +26,16 @@ body {
     top:100px;
   }
 
+  #canvass{
+    width: 800px;
+    height: 600px;
+    border: 1px solid rgb(165, 71, 87);
+    z-index: 2;
+    position:absolute;
+    left:50px;
+    top:100px;
+  }
+
   #canvas{
     width: 800px;
     height: 600px;
@@ -119,8 +129,8 @@ body {
     margin-bottom: 5px;
   }
   .select {
-      width: 300px;
-      height: 100px;
+      width: 100%;
+      height: 115px;
       position: absolute;
       left:50px;
       top: 1370px;
@@ -129,7 +139,6 @@ body {
   .thumbnail {
     width: 80px;
     height: 80px;
-    position: absolute;
   }
 
   .small {
@@ -201,8 +210,7 @@ body {
     width: 80px;
     height: 80px;
     top: 1050px;
-    left: 470px;
-    z-index: -3;
+    left: 650px;
   }
 
   #hat.png{

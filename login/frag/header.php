@@ -13,14 +13,19 @@
     </div>
   <?php } ?>
   <?php if(isset($_SESSION['id'])) { ?>
+  <div class="button" onclick="location.href='MyUpload.php'">
+    <span>
+      My Upload
+    </snap>
+  </div>
   <div class="button" onclick="location.href='gallery.php'">
     <span>
       Gallery
     </snap>
   </div>
-  <div class="button" onclick="location.href='views.php'">
+  <div class="button" onclick="location.href='profile.php'">
     <span>
-      Views
+      Update
     </snap>
   </div>
   <?php } ?>

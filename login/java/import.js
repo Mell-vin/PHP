@@ -1,5 +1,5 @@
-var fileInput = document.getElementById("take-picture");
-var canvas = document.getElementById("canvas");
+var fileInput = document.getElementById("shoot");
+var canvas = document.getElementById("canvass");
 var miniatures = document.getElementById("miniatures");
 var pickFile = document.getElementById("pickFile");
 fileInput.onchange = function (event) {
