@@ -10,7 +10,7 @@ session_start();
         You are logged in as: <?php print_r(htmlspecialchars($_SESSION['id']))?>
     <body style="background-color: grey;">
         <?php include 'frag/header.php';?>
-        <input id ="browse" onclick="swap2()" type="file">
+        <input id ="browse" onclick="swap()" type="file">
         <br><br>
         <div id="canvas">
               <video id="video">Video unavailable..</video>
@@ -37,16 +37,9 @@ session_start();
         <button id="saveFunc" onclick="includes/upload.inc.php">upload</button>
         <script>
               function swap() {
-                document.getElementById("upload").style.zIndex = "-1";
-                document.getElementById("photo").style.zIndex = "0";
-                var c = document.getElementById("upload");
+                var c = document.getElementById("cam");
                 var ctx = c.getContext("2d");
                 ctx.clearRect(0, 0, 800, 800);
-              }
-
-              function swap2() {
-                document.getElementById("upload").style.zIndex = "0";
-                document.getElementById("photo").style.zIndex = "-1";
               }
 
               document.getElementById('browse').onchange = function(e) {
@@ -56,7 +49,8 @@ session_start();
               img.src = URL.createObjectURL(this.files[0]);
               };
               function draw() {
-              var canvas = document.getElementById('upload');
+              var canvas = document.getElementById('cam');
+              var photo = document.getElementById('photo');
               canvas.width = this.width;
               canvas.height = this.height;
               var ctx = canvas.getContext('2d');
