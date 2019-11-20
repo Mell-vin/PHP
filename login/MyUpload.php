@@ -18,7 +18,9 @@ session_start();
         </div>
         <canvas id="cam"></canvas>
         <canvas id="upload"></canvas>
+        <canvas id="stickers"></canvas>
         <canvas id="canvass" style="display:none;" width="800" height="600"></canvas>
+        <canvas id="stickers"></canvas>
         <div class="output">
             <img id="photo" alt="Waiting for picture... "> 
         </div>
@@ -33,15 +35,21 @@ session_start();
             <img id="hat" style="display:none;" src="img/hat.png"></img>
             <img id="cigarette" style="display:none;" src="img/cig.png"></img>
             <img id="gun" style="display:none;" src="img/gun.png"></img>
-        <button id="web" onclick="swap()">webcam</button>
+        <button id="web" onclick="swap2()">webcam</button>
         <button id="saveFunc" onclick="includes/upload.inc.php">upload</button>
         <script>
               function swap() {
+                document.getElementById("cam").style.zIndex = "1";
+                document.getElementById("photo").style.zIndex = "0";
                 var c = document.getElementById("cam");
                 var ctx = c.getContext("2d");
                 ctx.clearRect(0, 0, 800, 800);
               }
 
+              function swap2() {
+                document.getElementById("photo").style.zIndex = "1";
+                document.getElementById("cam").style.zIndex = "0";
+              }
               document.getElementById('browse').onchange = function(e) {
               var img = new Image();
               img.onload = draw;

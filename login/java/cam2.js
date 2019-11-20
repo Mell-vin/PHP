@@ -21,7 +21,7 @@
   
     function startup() {
       video = document.getElementById('video');
-      canvas = document.getElementById('cam');
+      canvas = document.getElementById('upload');
       photo = document.getElementById('photo');
       startbutton = document.getElementById('shoot');
   
