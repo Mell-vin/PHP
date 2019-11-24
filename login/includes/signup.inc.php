@@ -49,7 +49,6 @@ if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //
     try{
         $conn = new PDO ("mysql:host=$DB_host;dbname=$DB_name",$DB_username,$DB_pwd);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully." . "\n";
         
         $sql = $conn->prepare("SELECT * FROM CamUsers WHERE Username=:username OR email=:email");
         // $sql->exec(array(':username' => $name, ':email' => $email));

@@ -59,6 +59,7 @@ body {
     left: 50px;
     width: 800px;
     height: 600px;
+    z-index: 3;
     border: 1px solid blue;
   }
 
