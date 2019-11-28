@@ -12,7 +12,9 @@ upload.addEventListener("click", function () {
     xhttp.onreadystatechange = fuction () {
         if (this.readystate == 4 && this.status == 200) 
         {
-            
+            let url = new URL('http://localhost//camagru/login/includes/recent.inc.php');
+            searchParams.set('image', dataURI);
+            xhttp.open('POST', url);
         }
     }
 });

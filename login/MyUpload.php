@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'includes/recent.inc.php';
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,7 +17,7 @@ session_start();
         </div>
         <canvas id="upload"></canvas>
         <div class="output">
-            <img id="photo" alt="image should appear here">
+            <img id="photo" alt="image should appear here" name="picture">
         </div>
         <div class="select">
       			<img class="thumbnail" src="img/gun.png"></img>
@@ -29,7 +30,7 @@ session_start();
             <img id="hat" style="display:none;" src="img/hat.png"></img>
             <img id="cigarette" style="display:none;" src="img/cig.png"></img>
             <img id="gun" style="display:none;" src="img/gun.png"></img>
-        <button id="saveFunc">upload</button>
+        <button id="saveFunc" onclick="">upload</button>
         <script>
               document.getElementById('browse').onchange = function(e) {
               var img = new Image();

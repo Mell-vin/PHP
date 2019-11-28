@@ -1,4 +1,4 @@
-<?php //script for the signing up page
+ <?php //script for the signing up page
 require 'includes/signup.inc.php';
 include 'frag/header.php';
 ?>
