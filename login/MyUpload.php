@@ -30,7 +30,7 @@ include 'includes/recent.inc.php';
             <img id="hat" style="display:none;" src="img/hat.png"></img>
             <img id="cigarette" style="display:none;" src="img/cig.png"></img>
             <img id="gun" style="display:none;" src="img/gun.png"></img>
-        <button id="saveFunc" onclick="">upload</button>
+        <button id="saveFunc" onclick="upLoad()">upload</button>
         <script>
               document.getElementById('browse').onchange = function(e) {
               var img = new Image();

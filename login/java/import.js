@@ -1,20 +1,24 @@
-var upload = document.getElementById("saveFunc");
-var img = document.getElementById("photo");
-var canvas = document.getElementById("upload");
-//var cadre = document.getElementsById("cadre.png").checked;
-//var cig = document.getElementsById("cigarette.png").checked;
-//var hat = document.getElementsById("hat.png").checked;
+var savebutton = docuent.getElementById("saveFunc").addeventlistener("click", function() {
+    var img = document.getElementsByTagName("img");
+    var imgSrc = img[0].src;
+    let xhr = XMLHttpRequest();
 
-
-upload.addEventListener("click", function () {
-    const dataURI = canvas.toDataURL();
-    var xhttp = XMLhttpRequest();
-    xhttp.onreadystatechange = fuction () {
-        if (this.readystate == 4 && this.status == 200) 
-        {
-            let url = new URL('http://localhost//camagru/login/includes/recent.inc.php');
-            searchParams.set('image', dataURI);
-            xhttp.open('POST', url);
+    xhr.open("POST", "includes/imageUpload.inc.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("image=" +encodeURIComponent(imgSrc));
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          if(response['Status'] == "success"){
+              var r = confirm("Image successfully uploaded");
+              if (r == true) {
+                  window.location.href = "index.php";
+              }
+              else {
+                  alert("An error occured, please try again...");
+                  window.location.href = "index.php";
+              }
+          };
         }
-    }
+      }
 });
