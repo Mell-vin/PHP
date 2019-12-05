@@ -1,6 +1,7 @@
 <?php
     session_start();
 
+    echo "we're here now";
     if (isset($_POST['image']) && isset($_SESSION['id']))
     {
         $img = $_POST['image'];
@@ -28,14 +29,14 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = $conn->prepare("INSERT INTO gallery (galid, img) VALUES (:userid, :img)");
             $sql->execute(array(':userid' => $userid, ':img' => $imgName."png"));
-            header("Location: http//localhost/camagru/login/myUpload.php");
+            header("Location: http://localhost/camagru/login/myUpload.php");
         } catch (PODException $e) {
             echo $e->getMessage();
-            header("Location: http//localhost/camagru/login/myUpload.php");
+            header("Location: http://localhost/camagru/login/myUpload.php");
             return;
         }
     }
     else {
-        header("Location: http//localhost/camagru/login/index.php");
+        header("Location: http://localhost/camagru/login/index.php");
     }
 ?>

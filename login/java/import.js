@@ -1,4 +1,4 @@
-var savebutton = docuent.getElementById("saveFunc").addeventlistener("click", function() {
+document.getElementById("saveFunc").addEventListener("click", function() {
     var img = document.getElementsByTagName("img");
     var imgSrc = img[0].src;
     let xhr = XMLHttpRequest();
