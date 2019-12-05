@@ -38,8 +38,9 @@
 
         $sql = "CREATE TABLE IF NOT EXISTS gallery (
             id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            img VARCHAR(100) NOT NULL,
+            imgName VARCHAR(100) NOT NULL,
             galid int (10) NOT NULL,
+            imgLoc VARCHAR(100) NOT NULL,
             FOREIGN KEY (galid) REFERENCES CamUsers(id)
         )";
         $conn->exec($sql);

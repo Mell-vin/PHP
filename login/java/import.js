@@ -1,7 +1,7 @@
 document.getElementById("saveFunc").addEventListener("click", function() {
     var img = document.getElementsByTagName("img");
     var imgSrc = img[0].src;
-    let xhr = XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
     xhr.open("POST", "includes/imageUpload.inc.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
