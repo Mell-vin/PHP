@@ -1,11 +1,12 @@
 <?php
     session_start();
-
+    include '../functions/verify.php';
     echo "we're here now";
     if (isset($_POST['image']) && isset($_SESSION['id']))
     {
         $img = $_POST['image'];
         $userid = $_SESSION['id'];
+        $id = getUserId($userid);
         $img = base64_decode($img);
         $imgName = date("YmdHms");
         $image = "";
@@ -27,9 +28,11 @@
         try {
             $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = $conn->prepare("INSERT INTO gallery (galid, img) VALUES (:userid, :img)");
-            $sql->execute(array(':userid' => $userid, ':img' => $imgName."png"));
-            header("Location: http://localhost/camagru/login/myUpload.php");
+            $sql = $conn->prepare("INSERT INTO gallery (galid, img, imgLoc) VALUES (:userid, :img, :imgloc)");
+            $sql->execute(array(':userid' => $userid, ':img' => $imgName."png", ':imgloc'=> $fileDirections));
+            echo json_encode(array("Status"=>"success","Data"=>$fileDir)); 
+            echo json_encode(array("Status"=>"error","Data"=>$fileDir));
+            //header("Location: http://localhost/camagru/login/myUpload.php");
         } catch (PODException $e) {
             echo $e->getMessage();
             header("Location: http://localhost/camagru/login/myUpload.php");
@@ -37,6 +40,7 @@
         }
     }
     else {
-        header("Location: http://localhost/camagru/login/index.php");
+        echo json_encode(array("Status"=>"false","Data"=>$fileDir));
+        //header("Location: http://localhost/camagru/login/index.php");
     }
 ?>

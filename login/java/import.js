@@ -4,6 +4,7 @@ document.getElementById("saveFunc").addEventListener("click", function() {
     let xhr = new XMLHttpRequest();
 
     xhr.open("POST", "includes/imageUpload.inc.php", true);
+    xhr.responseType = 'json';
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("image=" +encodeURIComponent(imgSrc));
     xhr.onreadystatechange = function () {

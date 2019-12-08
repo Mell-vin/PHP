@@ -33,7 +33,7 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         try{
             $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","000000");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = $conn->prepare("SELECT email, pwd FROM CamUsers WHERE email=:username AND pwd=:pwd AND verified='Y'");
+            $sql = $conn->prepare("SELECT email, pwd FROM CamUsers WHERE email=:username AND pwd=:pwd"); // add verifications Y thing
             // $sql->exec(array(':username' => $name, ':email' => $email));
             $hash = hash("md5", $pwd);
             $sql->bindParam(":username", $mailuid);

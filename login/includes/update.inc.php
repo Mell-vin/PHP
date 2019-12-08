@@ -24,11 +24,13 @@
         
         if (empty($pwd)) {
             $pwdErr = "password cannot be empty";
+            header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$pwdErr}");
+            return;
         } else{
             try{
-                $hash = hash("md5", $pwd);
+                $hash = hash("md5", $newpwd);
                 $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru","root","000000");
-                $conn->stAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = $conn->prepare("SELECT pwd FROM CamUsers WHERE pwd=:pwd");
                 $sql->bindParam(":pwd", $hash);
                 $sql->execute();
@@ -36,8 +38,31 @@
                 $ret = $sql->fetch();
                 if ($ret == 0) {
                     $pwdErr = "passwords didnt match.";
-                    header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$pwdErr}");
+                    $sql->closeCursor();
+                    header("Location: http://localhost:8080/camagru/login/profile.php?pwdDiff={$pwdErr}");
                     return;
+                }
+                else if ($ret) {
+                    if (empty($newpwd) || empty($pwdRep)) {
+                        $pwdErr = "new passwords cant be empty";
+                        header("Location: http://localhost:8080/camagru/login/profile.php?pwdDiff={$pwdErr}");
+                        return;
+                    }
+                    if ($newpwd != $pwdRep) {
+                        $pwdErr = "new passwords dont match";
+                        header("Location: http://localhost:8080/camagru/login/profile.php?pwdDiff={$pwdErr}");
+                        return;
+                    }
+                    if (!$uppercase || !$number || !$lowercase || !$specialChars || strlen($pwd) < 8) {
+                        $pwdErr = "new password too weak";
+                        header("Location: http://localhost:8080/camagru/login/profile.php?pwdStrength={$pwdErr}");
+                        return;
+                    }
+                    $username = $_SESSION['id'];
+                    $hash = hash("md5", $newpwd);
+                    $sql = $conn->prepare("INSERT INTO CamUsers (pwd) WHERE pwd=:user"); // finish off
+                    $sql->bindParam(":pwd", $hash);
+                    $sql->execute();
                 }
             } catch(PDOException $e) {
                 echo $e->getMessage();
