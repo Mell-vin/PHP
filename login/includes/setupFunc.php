@@ -36,4 +36,26 @@ session_start();
             //exit();
         }
     }
+
+    function UpdateProfile ($user, $pwd) {
+
+        $pwdSuccess = $failure = "";
+        try {
+            $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+            $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            $username = $_SESSION['id'];
+            $hash = hash("md5", $newpwd);
+            $sql = $conn->prepare("UPDATE CamUsers SET pwd=:pwd WHERE Username=:user"); // finish off
+            $sql->bindParam(":pwd", $hash);
+            $sql->bindParam(":user", $user);
+            $sql->execute();
+            $pwdSuccess = "Password updated!!";
+            header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$pwdSuccess}");
+            return;
+            } catch(PDOException $e) {
+                $failure = $e->getMessage();
+                header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$failure}");
+                return;
+            }
+    }
 ?>

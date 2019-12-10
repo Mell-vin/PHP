@@ -23,6 +23,7 @@ include 'frag/header.php';
                    <br><br>
                    <button type="submit" name="update-submit">update</button>
                 </form>
+                <button type="submit" name="delete_but">Delete profile</button>
             <?php } else { ?>
             <strong><?php echo "You need to login first before updating"; ?></strong>
             <?php } ?>
