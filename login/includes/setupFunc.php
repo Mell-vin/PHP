@@ -45,15 +45,21 @@ session_start();
             $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             $username = $_SESSION['id'];
             $hash = hash("md5", $newpwd);
-            $sql = $conn->prepare("UPDATE CamUsers SET pwd=:pwd WHERE Username=:user"); // finish off
-            $sql->bindParam(":pwd", $hash);
-            $sql->bindParam(":user", $user);
-            $sql->execute();
+            $sqlResult = $conn->prepare("UPDATE camUsers SET pwd=:pwd WHERE Username=:user"); // finish off // Get_id function so you can use it to update because woooow
+            $sqlExec = $sqlResult->execute(array(":pwd"=>$hash, ":user"=>$username));
+            if ($sqlExec) {
             $pwdSuccess = "Password updated!!";
             header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$pwdSuccess}");
             return;
+            }
+            else
+            {
+                $failure =  "Error: Password not updated";
+                header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$failure}");
+                return;
+            }
             } catch(PDOException $e) {
-                $failure = $e->getMessage();
+                $failure = "wow";
                 header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$failure}");
                 return;
             }
