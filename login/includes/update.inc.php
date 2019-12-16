@@ -17,6 +17,7 @@
         $newpwd = test($_POST['newpwd']);
         $pwd = test($_POST['pwd']);
         $user = $_SESSION['id'];
+        $id = get_UserID($user);
         $pwdRep = test($_POST['pwd-repeat']);
         $uppercase = preg_match('@[A-Z]@', $newpwd);
         $lowercase = preg_match('@[a-z]@', $newpwd);
@@ -34,7 +35,6 @@
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = $conn->prepare("SELECT * FROM camUsers WHERE pwd=:pwd");
                 $sql->bindParam(":pwd", $hash);
-                //$sql->bindParam(":user", $user);
                 $sql->execute();
 
                 $ret = $sql->fetchAll();

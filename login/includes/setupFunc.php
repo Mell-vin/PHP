@@ -1,9 +1,32 @@
 <?php
 session_start();
-    require 'config/database.php';
+    //require 'database.php';
     include 'includes/mail.inc.php';
     //require 'includes/signup.inc.php';
 
+    function get_UserID($user)
+    {
+        if (!empty($user)){
+            try {
+                $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+                $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $sql = $conn->prepare("SELECT * FROM camUsers WHERE Username=:user");
+                $sql->bindParam(":user", $user);
+                $sql->execute();
+
+                $ret = $sql->fetchAll();
+                if (sizeof($ret) > 0)
+                {
+                    $id = $ret[0];
+                    return (1);
+                } else if ($ret == 0){
+                    return (0);
+                }
+            }catch (PDOException $e) {
+                return (-1);
+            }
+        }
+    }
     function signupFunc ($name, $email, $pwd){
         try {
             $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
@@ -32,8 +55,6 @@ session_start();
 
         }catch(PDOException $e){
             echo $e->getMessage();
-            //echo "Error: oops!! Something went wrong";
-            //exit();
         }
     }
 
@@ -43,10 +64,9 @@ session_start();
         try {
             $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
             $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            $username = $_SESSION['id'];
-            $hash = hash("md5", $newpwd);
-            $sqlResult = $conn->prepare("UPDATE camUsers SET pwd=:pwd WHERE Username=:user"); // finish off // Get_id function so you can use it to update because woooow
-            $sqlExec = $sqlResult->execute(array(":pwd"=>$hash, ":user"=>$username));
+            $hash = hash("md5", $pwd);
+            $sqlResult = $conn->prepare("UPDATE camUsers SET pwd=:pwd WHERE email=:id");
+            $sqlExec = $sqlResult->execute(array(":pwd"=>$hash, ":id"=>$user));
             if ($sqlExec) {
             $pwdSuccess = "Password updated!!";
             header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$pwdSuccess}");
@@ -63,5 +83,30 @@ session_start();
                 header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$failure}");
                 return;
             }
+    }
+
+    function deleteAcc($user) {
+        if (!empty($user)) {
+            try {
+                $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+                $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $sql = $conn->prepare("DELETE FROM camUsers WHERE email=:email");
+                $sql->bindParam(":email", $user);
+                $del = $sql->execute();
+
+                if ($del){
+                    $_SESSION['error'] = null;
+                    $_SESSION['id'] = null;
+                    $_SESSION['mailuid'] = null;
+                    $_SESSION['success'] = "Account deleted";
+                    header("Location: http://localhost:8080/camagru/login/index.php");
+                    return;
+                }
+            } catch (PDOException $e) {
+                $failure = $e->getMessage();
+                header("Location: http://localhost:8080/camagru/login/profile.php?pwdErr={$failure}");
+                return;
+            }
+        }
     }
 ?>

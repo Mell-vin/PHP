@@ -28,6 +28,11 @@
                     print_r(htmlspecialchars($_SESSION['success']));
                 }
             ?>
+            <?php
+                if (isset($_SESSION['delete'])) {
+                    print_r(htmlspecialchars($_SESSION['delete']));
+                }
+            ?>
             <div>
                 <?php if (isset($_SESSION['id'])) { ?>
                     You are logged in as: <?php print_r(htmlspecialchars($_SESSION['id']))?>

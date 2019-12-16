@@ -1,6 +1,7 @@
 <?php //script for the updating user profile
-require 'includes/update.inc.php';
-include 'frag/header.php';
+    require 'includes/update.inc.php';
+    //include 'includes/delete.inc.php';
+    include 'frag/header.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@ include 'frag/header.php';
                    <br><br>
                    <button type="submit" name="update-submit">update</button>
                 </form>
-                <button type="submit" name="delete_but">Delete profile</button>
+                <a href='includes/delete.inc.php?Delete=true'><strong>Delete Account</strong></a>
             <?php } else { ?>
             <strong><?php echo "You need to login first before updating"; ?></strong>
             <?php } ?>
