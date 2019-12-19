@@ -31,23 +31,21 @@
         try {
             $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru","root","000000");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = $conn->prepare("SELECT id FROM CamUsers WHERE Username=:user");
+            $sql = $conn->prepare("SELECT id FROM CamUsers WHERE email=:user");
             $sql->bindParam(":user", $username);
             $sql->execute();
 
-            $ret = $sql->fetch();
+            $ret = $sql->fetch_row();
             if ($ret != null) {
-                return ($ret['id']);
+                return ($ret[0]);
             }
             else {
-                header ("Location: localhost:8080/camagru/login/MyUpload.php");
                 return (-1);
             }
 
         } catch (PDOException $e) {
             echo $e->getMessage();
-            header ("Location: localhost:8080/camagru/login/MyUpload.php");
-            return (0);
+            return (-2);
         }
     }
 ?>

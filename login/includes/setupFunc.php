@@ -18,9 +18,9 @@ session_start();
                 if (sizeof($ret) > 0)
                 {
                     $id = $ret[0];
-                    return (1);
+                    return ($id);
                 } else if ($ret == 0){
-                    return (0);
+                    return (-2);
                 }
             }catch (PDOException $e) {
                 return (-1);

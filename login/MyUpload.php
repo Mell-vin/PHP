@@ -30,7 +30,12 @@ session_start();
             <img id="hat" style="display:none;" src="img/hat.png"></img>
             <img id="cigarette" style="display:none;" src="img/cig.png"></img>
             <img id="gun" style="display:none;" src="img/gun.png"></img>
-        <button id="saveFunc">upload</button>
+            <form method="POST" name="form" id="form">
+                <textarea name="base64" id="base64"></textarea>
+                <button type="submit">
+                    Upload
+                </button>
+            </form>
         <script>
               document.getElementById('browse').onchange = function(e) {
               var img = new Image();
