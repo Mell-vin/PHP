@@ -53,6 +53,12 @@ body {
     top: 50px;
   }
 
+  #browse2 {
+    position:absolute;
+    left:100px;
+    top: 800px;
+  }
+
   #upload {
     position: absolute;
     top:750px;
@@ -61,6 +67,16 @@ body {
     height: 600px;
     z-index: 3;
     border: 1px solid blue;
+  }
+
+  #upload1 {
+    position: absolute;
+    top:750px;
+    left: 50px;
+    width: 80px;
+    height: 40px;
+    z-index: 3;
+    /* border: 1px solid blue; */
   }
 
   #stickers {
@@ -106,6 +122,7 @@ body {
     height:600px;
     z-index: -2;
   }
+
   .button {
     float: right;
     height: 56px;
@@ -114,6 +131,7 @@ body {
     border: 2px solid bisque;
     color: white;
   }
+
   .button:hover {
     color: #cfcfcf;
     cursor: pointer;
@@ -240,6 +258,7 @@ body {
     top: 1200px;
     left: 50px;
   }
+
   .removable:hover {
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6),0 6px 20px 0 rgba(0,0,0,0.39);

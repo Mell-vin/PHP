@@ -24,6 +24,32 @@
       canvas = document.getElementById('upload');
       photo = document.getElementById('photo');
       startbutton = document.getElementById('shoot');
+
+
+      uploadbutton = document.getElementById('upload1');
+      uploadbutton.onclick = uploadPicture;
+      
+      function uploadPicture() {
+        var file = canvas.toDataURL('image/png');
+
+        var xhr = new XMLHttpRequest;
+        xhr.onreadystatechange = function(res) {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            resData = res.target.response;
+            if (resData) {
+              alert(resData);
+            } else {
+              console.log("ERROR");
+            }
+          }
+       };
+        xhr.open ('POST', 'includes/imageUpload.inc.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // xhr.send("img=" + file);
+        console.log(file);
+        xhr.send("img=" + file);
+    }
+
   
       navigator.mediaDevices.getUserMedia({video: true, audio: false})
       .then(function(stream) {

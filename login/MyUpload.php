@@ -9,7 +9,10 @@ session_start();
 </header>
     <body style="background-color: grey;">
         <?php include 'frag/header.php';?>
-        <input id ="browse" type="file" accept="image/*"></input>
+        <form action="includes/LocalUpload.inc.php" method="post" enctype="multipart/form-data">
+            <input id ="browse" name ="file" type="file" accept="image/*">
+            <button id="browse2" type="submit" name="submit">UPLOAD</button>
+        </form>
         <br><br>
         <div id="canvas">
               <video id="video">Video unavailable..</video>
@@ -20,22 +23,25 @@ session_start();
             <img id="photo" alt="image should appear here" name="picture">
         </div>
         <div class="select">
-      			<img class="thumbnail" src="img/gun.png"></img>
+      			<img class="thumbnail" src="img/gun.png">
       			<input id="cadre.png" type="radio" name="img1" value="1" onclick="onCheckBoxChecked(this)">
-      			<img class="thumbnail" src="img/cig.png"></img>
+      			<img class="thumbnail" src="img/cig.png">
       			<input id="cigarette.png" type="radio" name="img2" value="2" onclick="onCheckBoxChecked(this)">
-      			<img class="thumbnail" src="img/hat.png"></img>
-      			<input id="hat.png" type="radio" name="img3" value="3" onclick="onCheckBoxChecked(this)">
+      			<img class="thumbnail" src="img/hat.png">
+                <input id="hat.png" type="radio" name="img3" value="3" onclick="onCheckBoxChecked(this)">
+                
+                <img id="test" class="thumbnail" src="img/hat.png">
         </div>
-            <img id="hat" style="display:none;" src="img/hat.png"></img>
-            <img id="cigarette" style="display:none;" src="img/cig.png"></img>
-            <img id="gun" style="display:none;" src="img/gun.png"></img>
-            <form method="POST" name="form" id="form">
-                <textarea name="base64" id="base64"></textarea>
-                <button type="submit">
-                    Upload
-                </button>
-            </form>
+            <img id="hat" style="display:none;" src="img/hat.png">
+            <img id="cigarette" style="display:none;" src="img/cig.png">
+            <img id="gun" style="display:none;" src="img/gun.png">
+
+        
+            <button id="upload1">Uploadbutton</button>
+
+
+
+        
         <script>
               document.getElementById('browse').onchange = function(e) {
               var img = new Image();
@@ -55,7 +61,9 @@ session_start();
               }
         </script>
         <script type="text/javascript" src="java/cam2.js"></script>
-        <script type="text/javascript" src="java/import.js"></script>
+
+
+        <!-- <script type="text/javascript" src="java/import.js"></script> -->
         
     </body>
 </html>
