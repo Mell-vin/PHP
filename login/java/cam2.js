@@ -24,6 +24,7 @@
       canvas = document.getElementById('upload');
       photo = document.getElementById('photo');
       startbutton = document.getElementById('shoot');
+      stickerCanvas = document.getElementById("stickers");
 
 
       uploadbutton = document.getElementById('upload1');
@@ -31,6 +32,7 @@
       
       function uploadPicture() {
         var file = canvas.toDataURL('image/png');
+        var stickers = stickerCanvas.toDataURL('image/png');
 
         var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function(res) {
@@ -47,7 +49,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         // xhr.send("img=" + file);
         console.log(file);
-        xhr.send("img=" + file);
+        xhr.send("img=" + file+"&sticker="+stickers);
     }
 
   

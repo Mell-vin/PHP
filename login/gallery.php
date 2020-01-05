@@ -2,8 +2,9 @@
     session_start();
     include 'functions/recent.inc.php';
     include 'frag/header.php';
+    include 'includes/setupFunc.php';
 
-    $uploads = get_all();
+    $pictures = get_all_Pictures();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -15,21 +16,28 @@
         
     </header>
     <body style="background-color: grey">
-        <div id="miniPic">
-        <?php
-            $gallery = "";
-            if ($uploads != null) {
-                for ($i = 0; $montages[$i] ; $i++) {
-                    $class = "icon";
-                    if ($uploads[$i]['userid'] === $_SESSION['id']) {
-                        $class .= " removable";
-                    }
-                    $gallery .= "<img class=\"" . $class . "\" src=\"./montage/" . $uploads[$i]['img'] . "\" data-userid=\"" . $uploads[$i]['userid'] . "\"></img>";
+    <div class="sideGallery">
+
+<div class="title">Pictures</div>
+
+<div id="miniatures">
+    <?php
+        $gallery = "";
+        $comment = "";
+        if ($pictures != null) {
+            for ($i = sizeof($pictures) - 1; $i >= 0; $i--) {
+                $class = "icon";
+                if ($pictures[$i]['galid']) {
+                    $class .= " removableG";
                 }
-                echo $gallery;
+                $gallery .= "<img class=\"" . $class . "\" src=\"./montage/" . $pictures[$i]['imgLoc'] . "\" data-userid=\"" . $pictures[$i]['galid'] . "\"></img>";
             }
-        ?>
-        </div>
+            echo $gallery;
+            echo "<br><br>";
+        }
+    ?>
+</div>
+</div>
         <?php
             include 'frag/footer.php';
         ?>

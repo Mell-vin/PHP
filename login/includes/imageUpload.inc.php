@@ -2,17 +2,29 @@
     session_start();
     // include '../functions/verify.php';
 
-    if (isset($_POST['img']) && isset($_SESSION['id'])) {
+    if (isset($_POST['img']) && isset($_SESSION['id']) && isset($_POST['sticker'])) {
 
         $img = $_POST['img'];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file =  '/goinfre/lgumede/Desktop/mamp/apache2/htdocs/camagru/login/img/' . 'image' . date('YmdHis') . '.png';
-        file_put_contents($file, $data);
-
-        $path = 'image' . date('YmdHis') . '.png';
+        $sticker = $_POST['sticker'];
         $userid = $_SESSION['id'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $sticker = str_replace('data:image/png;base64,', '', $sticker);
+        $img = str_replace(' ', '+', $img);
+        $sticker = str_replace(' ', '+', $sticker);
+        $data = base64_decode($img);
+        $effect = base64_decode($sticker);
+        $temp = '../tmp/' . 'image' . date('YmdHis') . '.png';
+        $file =  '../img/' . 'image' . date('YmdHis') . '.png';
+        file_put_contents($file, $data); //move to last in a bit
+        file_put_contents($temp, $effect);
+        list($width,$height) = getimagesize($file);
+        $path = 'image' . date('YmdHis') . '.png';
+        $Fdata = imagecreatefromstring(file_get_contents($file));
+        $Feffect = imagecreatefromstring(file_get_contents($temp));
+        imagecopymerge($Fdata,$Feffect,0,0,0,0,$width, $height,45);
+        $save = '../uploads/' . 'image' . date('YmdHis') . '.png';
+        imagepng($Fdata, $save);
+        imageDestroy($Fdata);
 
         try {
             $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","000000");
@@ -24,9 +36,9 @@
             $ret = $sqlid->fetch();
             $userid = $ret[0];
             $sqlinsert = $conn->prepare("INSERT INTO gallery (galid, imgName, imgLoc) VALUES (:id, :img, :imgloc)");
-            $sqlinsert->bindParam(":id", $userid) ;
+            $sqlinsert->bindParam(":id", $userid);
             $sqlinsert->bindParam(":img", $path);
-            $sqlinsert->bindParam(":imgloc", $file);
+            $sqlinsert->bindParam(":imgloc", $save);
             $sqlinsert->execute();
             echo "Photo successfully uploaded";
 
@@ -37,43 +49,3 @@
     } else {
         echo "Error: No image data";
     }
-    
-    if (isset($_POST['test']) && isset($_SESSION['id']))
-    {
-        $img = $_POST['test'];
-        $userid = $_SESSION['id'];
-
-        // $id = getUserId($userid);
-
-        
-
-
-        // if ($id == -1 || $id == -2) {
-        //     echo "couldnt find id";
-        //     header("Location: http://localhost/camagru/login/myUpload.php");
-        //     return;
-        // }
-        // $img = base64_decode($img);
-        // $imageName = date("YmdHms");
-
-        // $fileDirections = "../uploads/".$img.".png";
-        // if (file_put_contents($fileDirections, $img)) {
-        //     try {
-        //         $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
-        //         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //         $sql = $conn->prepare("INSERT INTO gallery (galid, img, imgLoc) VALUES (:userid, :img, :imgloc)");
-        //         $sql->execute(array(':userid' => $userid, ':img' => $imgName."png", ':imgloc'=> $fileDirections));
-        //         //header("Location: http://localhost/camagru/login/myUpload.php");
-        //     } catch (PODException $e) {
-        //         echo $e->getMessage();
-        //         // header("Location: http://localhost/camagru/login/myUpload.php");
-        //         return;
-        //     }
-        // }
-
-    }
-    else {
-        //header("Location: http://localhost/camagru/login/index.php");
-        echo $_SESSION['id'];
-    }
-?>

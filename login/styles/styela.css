@@ -65,7 +65,7 @@ body {
     left: 50px;
     width: 800px;
     height: 600px;
-    z-index: 3;
+    z-index: 0;
     border: 1px solid blue;
   }
 
@@ -85,7 +85,8 @@ body {
     left: 50px;
     width: 800px;
     height: 600px;
-    border: 1px solid rgb(140, 14, 179);
+    border: 10px solid black;
+    z-index: 2;
   }
 
   #saveFunc {
@@ -157,6 +158,15 @@ body {
   .side {
     margin-left: 10px;
     width: 230px;
+    border: 3px black;
+    margin-left: 1382px;
+    overflow-y: scroll;
+    height: 600px;
+  }
+  .sideGallery {
+    margin-left: 10px;
+    width: 600px;
+    border: 3px black;
   }
   .title {
       text-align: center;
@@ -262,6 +272,10 @@ body {
   .removable:hover {
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6),0 6px 20px 0 rgba(0,0,0,0.39);
+  }
+  .removableG:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6),0 60px 200px 0 rgba(0,0,0,0.39);
   }
   .captureFile {
     position: absolute;

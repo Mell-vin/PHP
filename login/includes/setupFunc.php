@@ -10,11 +10,11 @@ session_start();
             try {
                 $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
                 $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $sql = $conn->prepare("SELECT * FROM camUsers WHERE Username=:user");
+                $sql = $conn->prepare("SELECT * FROM camUsers WHERE email=:user");
                 $sql->bindParam(":user", $user);
                 $sql->execute();
 
-                $ret = $sql->fetchAll();
+                $ret = $sql->fetch();
                 if (sizeof($ret) > 0)
                 {
                     $id = $ret[0];
@@ -109,4 +109,43 @@ session_start();
             }
         }
     }
+    
+    function get_all_Pictures() {
+        try {
+            $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $query= $conn->prepare("SELECT galid, imgLoc FROM gallery");
+            $query->execute();
+            $i = 0;
+            $tab = null;
+            while ($val = $query->fetch()) {
+              $tab[$i] = $val;
+              $i++;
+            }
+            $query->closeCursor();
+            return ($tab);
+          } catch (PDOException $e) {
+            return ($e->getMessage());
+          } 
+      }
+
+      function get_user_Pictures($user) {
+        try {
+            $conn = new PDO("mysql:host=localhost;dbname=lwazCamagru", "root", "000000");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $query= $conn->prepare("SELECT galid, imgLoc FROM gallery WHERE galid=:id");
+            $query->bindParam(":id", $user);
+            $query->execute();
+            $i = 0;
+            $tab = null;
+            while ($val = $query->fetch()) {
+              $tab[$i] = $val;
+              $i++;
+            }
+            $query->closeCursor();
+            return ($tab);
+          } catch (PDOException $e) {
+            return ($e->getMessage());
+          } 
+      }
 ?>
