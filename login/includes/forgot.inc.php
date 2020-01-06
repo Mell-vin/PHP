@@ -1,8 +1,10 @@
 <?php
     session_start();
     include 'mail.inc.php';
+    include 'setupFunc.php';
+
     if (isset($_POST['email']) && isset($_POST['login-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = strtolower($_POST['email']);
+        $email = test(strtolower($_POST['email']));
         if (empty($email)) {
             $mailErr = "email can not be empty";
             header("Location: http://localhost:8080/camagru/login/forgot.php?mailErr={$mailErr}");
@@ -20,7 +22,6 @@
                 $sql->execute();
                 $ret = $sql->fetchAll();
                 $newPwd = uniqid('');
-                $newPwd = hash('md5',$newPwd);
 
                 if (sizeof($ret) > 0) {
                     forgotPwd($email, $newPwd);

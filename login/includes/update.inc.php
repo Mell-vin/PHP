@@ -1,17 +1,12 @@
 <?php
     session_start();
     include 'includes/setupFunc.php';
+    include 'setupFunc.php';
 
     
 
     if (isset($_POST['update-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         
-        function test($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-          }
 
         $pwdErr = $pwdDiff = $pwdStrength = $pwdSuccess = $failure = "";
         $newpwd = test($_POST['newpwd']);

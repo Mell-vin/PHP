@@ -1,15 +1,9 @@
 <?php
 session_start();
 include 'functions/login.inc.php';
+include 'setupFunc.php';
 
 if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
-
-    function test($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-      }
 
     $nameErr = $pwdErr = "";
     $mailuid = strtolower(test($_POST['mailuid']));
@@ -28,7 +22,6 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
         return;
         }
 
-        //$log = login($mailuid, $pwd);
         if (!empty($mailuid) && !empty($pwd)){
         try{
             $conn = new PDO ("mysql:host=localhost;dbname=lwazCamagru","root","000000");
@@ -40,15 +33,6 @@ if (isset($_POST['login-submit']) && $_SERVER['REQUEST_METHOD'] == "POST") {
             $sql->bindParam(":pwd", $hash);
             $sql->execute();
     
-            // $res = $sql->setFetchMode(PDO::FETCH_ASSOC);
-        
-            // $ret = $sql->fetchAll();
-            //<br /><b>Notice</b>:  Undefined variable: name in <b>C:\xampp\htdocs\camagru\login\signup.php</b> on line <b>12</b><br />
-            // for ($i = 0; $i < sizeof($ret); $i++) {
-            //     foreach ($ret[$i] as $k => $v) {
-            //         echo "{$k}: {$v}<br/>";
-            //     }
-            // }
     
             $ret = $sql->fetchAll();
     

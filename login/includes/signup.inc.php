@@ -10,12 +10,6 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['pwd']) && i
     $pwd = test($_POST['pwd']);
     $pwdRep = test($_POST['pwd-repeat']);
 }
-function test($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
 
 
 if (isset($_POST['signup-submit']) && $_SERVER["REQUEST_METHOD"] == "POST") { //checks to see if sign up page was accessed using the sign up button,

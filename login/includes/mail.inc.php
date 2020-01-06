@@ -32,7 +32,8 @@
           </head>
           <body>
             Hello user ' . htmlspecialchars($email) . ' </br>
-            There is your new password : ' . $pwd . ' </br> 
+            There is your new password : ' . $pwd . '. Please login using this password and immediately update it.214
+            57\ </br> 
           </body>     
         </html>
         ';

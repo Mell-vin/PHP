@@ -148,4 +148,11 @@ session_start();
             return ($e->getMessage());
           } 
       }
+
+      function test($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 ?>
